@@ -4,9 +4,13 @@ import './Film.css';
 
 const FilmsList = () => {
   const [films, setFilms] = useState([]);
+
   const [releaseDates, setReleaseDates] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(undefined);
+  const [selectedDate, setSelectedDate] = useState("");
+
   const [directors, setDirectors] = useState([]);
+  const [selectedDirector, setSelectedDirector] = useState("");
+
   const [search, setSearch] = useState(undefined);
   const [searchResults, setSearchResults] = useState([]);
 
@@ -24,6 +28,7 @@ const FilmsList = () => {
         data.map((film) => {
           if(years.indexOf(film.release_date) === -1)
             years.push(film.release_date);
+
           if(names.indexOf(film.director) === -1)
             names.push(film.director);
         })
@@ -39,26 +44,46 @@ const FilmsList = () => {
     setSearch(event.currentTarget.value);
   }
 
-  useEffect(() => {
-    const results = films.filter(films => films.title.toLowerCase().includes(search));
-    setSearchResults(results);
-  }, [search])
-
   const selectDate = (event) => {
     setSelectedDate(event.currentTarget.value);
   }
 
+  const selectDirector = (event) => {
+    setSelectedDirector(event.currentTarget.value);
+  }
+
   useEffect(() => {
-    const results = films.filter(films => films.release_date.toLowerCase().includes(selectedDate));
+    let results;
+
+    if(selectedDate !== "" && selectedDirector !== ""){
+      results = films.filter(films => films.title.toLowerCase().includes(search) && films.release_date.includes(selectedDate) && films.director.includes(selectedDirector));
+    }
+    else if(selectedDate === "" && selectedDirector !== ""){
+      results = films.filter(films => films.title.toLowerCase().includes(search) && films.director.includes(selectedDirector));
+    }
+    else if (selectedDate !== "" && selectedDirector === ""){
+      results = films.filter(films => films.title.toLowerCase().includes(search) && films.release_date.includes(selectedDate));
+    }
+    else{
+      results = films.filter(films => films.title.toLowerCase().includes(search));
+    }
+
     setSearchResults(results);
-  }, [selectedDate])
+  }, [search, selectedDate, selectedDirector])
 
   return (
     <div className="FilmsList">
-      <input type="text" value={search} label="Looking for a film ?" onChange={onChange}/>
+      <input type="text" label="Entrer un titre" value={search} onChange={onChange}/>
       <select name="years" onChange={selectDate} value={selectedDate}>
+        <option value="">Year</option>
         {releaseDates.map((date) => (
           <option value={date}>{date}</option>
+        ))}
+      </select>
+      <select name="directors" onChange={selectDirector} value={selectedDirector}>
+        <option value="">Director</option>
+        {directors.map((director) => (
+          <option value={director}>{director}</option>
         ))}
       </select>
       <div className="Films">
