@@ -1,0 +1,19 @@
+.Films{
+  background-color: aqua;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+
+.Film {
+  border: 1px solid red;
+  width: 400px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.Film img {
+  width: inherit;
+  height: auto;
+}
