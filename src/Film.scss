@@ -1,0 +1,40 @@
+.Films{
+  /* background-color: aqua; */
+  display: flex;
+  justify-content: space-around;
+  flex-flow: row wrap;
+  margin-top: 20px;
+
+  img {
+    width: 400px;
+    height: auto;
+  }
+
+  p {
+    text-align: justify;
+  }
+
+  .Film {
+    width: 400px;
+
+    &-infos {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+
+  
+
+}
+
+
+
+
+
+
+
+
+
+
+
+

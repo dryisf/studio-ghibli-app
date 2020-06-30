@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Film from './Film';
-import './Film.css';
+import './Film.scss';
 
 const FilmsList = () => {
   const [films, setFilms] = useState([]);
