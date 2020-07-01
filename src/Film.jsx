@@ -1,14 +1,11 @@
 import React from 'react';
 
 
-const Film = ({data}) => (
-  <div className="Film">
-    <div className="Film-img">
+const Film = ({data, onClick}) => (
+  <div className="Film" onClick={onClick}>
+    <div className="Film-img-wrap">
       <img src={process.env.PUBLIC_URL + '/img/'+ data.title +'.jpg'} alt="affiche film"/>
-    </div>
-    <div className="Film-infos">
-      {data.title} – {data.release_date} ({data.director})
-      <p>{data.description}</p>
+      <p>{data.title} – {data.release_date} ({data.director})</p>
     </div>
   </div>
 );

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Film from './Film';
+import FilmDetails from './FilmDetails';
 import './Film.scss';
 
 const FilmsList = () => {
@@ -13,6 +14,8 @@ const FilmsList = () => {
 
   const [search, setSearch] = useState(undefined);
   const [searchResults, setSearchResults] = useState([]);
+
+  const [selectedFilm, setSelectedFilm] = useState({});
 
   useEffect(() => {
     fetch('https://ghibliapi.herokuapp.com/films')
@@ -71,6 +74,10 @@ const FilmsList = () => {
     setSearchResults(results);
   }, [search, selectedDate, selectedDirector])
 
+  const displayDetails = (film) => {
+    setSelectedFilm(film);
+  }
+
   return (
     <div className="FilmsList">
       <input type="text" label="Entrer un titre" value={search} onChange={onChange}/>
@@ -86,9 +93,10 @@ const FilmsList = () => {
           <option value={director}>{director}</option>
         ))}
       </select>
+      <FilmDetails data={selectedFilm}/>
       <div className="Films">
         {searchResults.map((film) => (
-          <Film data={film} />
+          <a href='#'><Film data={film} onClick={() => displayDetails(film)} /></a>
         ))}
       </div>
     </div>
