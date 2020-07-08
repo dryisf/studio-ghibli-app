@@ -17,6 +17,8 @@ const FilmsList = () => {
 
   const [selectedFilm, setSelectedFilm] = useState({});
 
+  const [detailsTop, setDetailsTop] = useState("-5000px")
+
   useEffect(() => {
     fetch('https://ghibliapi.herokuapp.com/films')
       .then(response => {
@@ -76,6 +78,12 @@ const FilmsList = () => {
 
   const displayDetails = (film) => {
     setSelectedFilm(film);
+    setDetailsTop("50%");
+  }
+
+  const closeDetails = () => {
+    setSelectedFilm(undefined);
+    setDetailsTop("-500px");
   }
 
   return (
@@ -93,10 +101,10 @@ const FilmsList = () => {
           <option value={director}>{director}</option>
         ))}
       </select>
-      <FilmDetails data={selectedFilm}/>
+      <FilmDetails data={selectedFilm} onClose={() => closeDetails()} top={detailsTop}/>
       <div className="Films">
         {searchResults.map((film) => (
-          <a href='#'><Film data={film} onClick={() => displayDetails(film)} /></a>
+          <a href='#'><Film data={film} onClick={() => displayDetails(film)}  /></a>
         ))}
       </div>
     </div>
