@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import $ from "jquery";
 import Film from './Film';
 import FilmDetails from './FilmDetails';
 import './Film.scss';
@@ -17,8 +18,6 @@ const FilmsList = () => {
 
   const [selectedFilm, setSelectedFilm] = useState({});
 
-  const [detailsTop, setDetailsTop] = useState("-5000px")
-
   useEffect(() => {
     fetch('https://ghibliapi.herokuapp.com/films')
       .then(response => {
@@ -30,13 +29,13 @@ const FilmsList = () => {
         let years = [];
         let names = [];
 
-        data.map((film) => {
+        for (const film of data) {
           if(years.indexOf(film.release_date) === -1)
             years.push(film.release_date);
 
           if(names.indexOf(film.director) === -1)
             names.push(film.director);
-        })
+        }
 
         setReleaseDates(years);
         setDirectors(names);
@@ -74,16 +73,17 @@ const FilmsList = () => {
     }
 
     setSearchResults(results);
-  }, [search, selectedDate, selectedDirector])
+  }, [search, selectedDate, selectedDirector, films])
 
   const displayDetails = (film) => {
     setSelectedFilm(film);
-    setDetailsTop("50%");
+    $('.FilmDetails').toggleClass("toggled");
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   const closeDetails = () => {
     setSelectedFilm(undefined);
-    setDetailsTop("-500px");
+    $('.FilmDetails').toggleClass("toggled");
   }
 
   return (
@@ -105,12 +105,12 @@ const FilmsList = () => {
           ))}
       </select>
 
-      <FilmDetails data={selectedFilm} onClose={() => closeDetails()} top={detailsTop}/>
+      { <FilmDetails data={selectedFilm} onClose={() => closeDetails()} /> }
       <div className="Films">
         {searchResults.map((film) => (
-            <a href='#'><Film data={film} onClick={() => displayDetails(film)}  /></a>
+            <Film data={film} onClick={() => displayDetails(film)}  />
         ))}
-        {searchResults.length == 0 && (
+        {searchResults.length === 0 && (
           <p>No films found</p>)
         }
       </div>

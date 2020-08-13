@@ -2,9 +2,9 @@ import React  from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
-const FilmDetails = ({data, onClose, top}) => {
+const FilmDetails = ({data, onClose }) => {
     return (
-      <div className="FilmDetails" style={{ top }}>
+      <div className="FilmDetails">
         <FontAwesomeIcon className="closeButton" icon={faTimesCircle} onClick={onClose} />
         {data !== undefined && (
         <div>
