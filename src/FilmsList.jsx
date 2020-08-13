@@ -13,7 +13,7 @@ const FilmsList = () => {
   const [directors, setDirectors] = useState([]);
   const [selectedDirector, setSelectedDirector] = useState("");
 
-  const [search, setSearch] = useState(undefined);
+  const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
   const [selectedFilm, setSelectedFilm] = useState({});
@@ -39,8 +39,6 @@ const FilmsList = () => {
 
         setReleaseDates(years);
         setDirectors(names);
-
-        setSearch("");
       })
   }, []);
 
@@ -60,16 +58,16 @@ const FilmsList = () => {
     let results;
 
     if(selectedDate !== "" && selectedDirector !== ""){
-      results = films.filter(films => films.title.toLowerCase().includes(search) && films.release_date.includes(selectedDate) && films.director.includes(selectedDirector));
+      results = films.filter(films => films.title.toLowerCase().includes(search.toLowerCase()) && films.release_date.includes(selectedDate) && films.director.includes(selectedDirector));
     }
     else if(selectedDate === "" && selectedDirector !== ""){
-      results = films.filter(films => films.title.toLowerCase().includes(search) && films.director.includes(selectedDirector));
+      results = films.filter(films => films.title.toLowerCase().includes(search.toLowerCase()) && films.director.includes(selectedDirector));
     }
     else if (selectedDate !== "" && selectedDirector === ""){
-      results = films.filter(films => films.title.toLowerCase().includes(search) && films.release_date.includes(selectedDate));
+      results = films.filter(films => films.title.toLowerCase().includes(search.toLowerCase()) && films.release_date.includes(selectedDate));
     }
     else{
-      results = films.filter(films => films.title.toLowerCase().includes(search));
+      results = films.filter(films => films.title.toLowerCase().includes(search.toLowerCase()));
     }
 
     setSearchResults(results);
