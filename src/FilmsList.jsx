@@ -88,25 +88,33 @@ const FilmsList = () => {
 
   return (
     <div className="FilmsList">
-      <input type="text" label="Entrer un titre" value={search} onChange={onChange}/>
+
+      <input placeholder="Enter a title" type="text" value={search} onChange={onChange}/>
+
       <select name="years" onChange={selectDate} value={selectedDate}>
         <option value="">Year</option>
         {releaseDates.map((date) => (
           <option value={date}>{date}</option>
         ))}
       </select>
+
       <select name="directors" onChange={selectDirector} value={selectedDirector}>
         <option value="">Director</option>
         {directors.map((director) => (
           <option value={director}>{director}</option>
-        ))}
+          ))}
       </select>
+
       <FilmDetails data={selectedFilm} onClose={() => closeDetails()} top={detailsTop}/>
       <div className="Films">
         {searchResults.map((film) => (
-          <a href='#'><Film data={film} onClick={() => displayDetails(film)}  /></a>
+            <a href='#'><Film data={film} onClick={() => displayDetails(film)}  /></a>
         ))}
+        {searchResults.length == 0 && (
+          <p>No films found</p>)
+        }
       </div>
+
     </div>
   );
 }
