@@ -78,10 +78,13 @@ const FilmsList = () => {
     if (!($('.FilmDetails').hasClass('toggled'))){
       $('.FilmDetails').toggleClass("toggled");
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (window.matchMedia("(max-width: 600px)").matches) {
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    }
   }
 
   const closeDetails = () => {
+    setSelectedFilm(undefined);
     $('.FilmDetails').toggleClass("toggled");
   }
 

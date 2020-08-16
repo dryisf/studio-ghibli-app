@@ -1,5 +1,5 @@
   .FilmDetails {
-    position: absolute;
+    position: fixed;
     background-color: #74b9ff;
     top: -500px;
     left: 50%;
@@ -106,7 +106,17 @@
     }
 
     .FilmDetails {
+      display: none;
       width: 300px;
-      margin-top: 90px;
+      position: relative;
+      transform: none;
+      left: 0;
+      margin-top: 20px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .toggled {
+      display: block;
     }
   }
