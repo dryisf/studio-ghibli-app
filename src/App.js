@@ -22,7 +22,7 @@ function App() {
 
   return (
     <div className="App">
-      <img src={Logo} alt="Logo studio ghibli" style={{ width: 500, height: 200, marginTop: 10 }}></img>
+      <img src={Logo} class="logo" alt="Logo studio ghibli"></img>
       <FilmsList />
     </div>
   );

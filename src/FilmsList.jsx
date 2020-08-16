@@ -57,16 +57,16 @@ const FilmsList = () => {
   useEffect(() => {
     let results;
 
-    if(selectedDate !== "" && selectedDirector !== ""){
+    if (selectedDate !== "" && selectedDirector !== ""){
       results = films.filter(films => films.title.toLowerCase().includes(search.toLowerCase()) && films.release_date.includes(selectedDate) && films.director.includes(selectedDirector));
     }
-    else if(selectedDate === "" && selectedDirector !== ""){
+    else if (selectedDate === "" && selectedDirector !== ""){
       results = films.filter(films => films.title.toLowerCase().includes(search.toLowerCase()) && films.director.includes(selectedDirector));
     }
     else if (selectedDate !== "" && selectedDirector === ""){
       results = films.filter(films => films.title.toLowerCase().includes(search.toLowerCase()) && films.release_date.includes(selectedDate));
     }
-    else{
+    else {
       results = films.filter(films => films.title.toLowerCase().includes(search.toLowerCase()));
     }
 
@@ -75,12 +75,13 @@ const FilmsList = () => {
 
   const displayDetails = (film) => {
     setSelectedFilm(film);
-    $('.FilmDetails').toggleClass("toggled");
+    if (!($('.FilmDetails').hasClass('toggled'))){
+      $('.FilmDetails').toggleClass("toggled");
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   const closeDetails = () => {
-    setSelectedFilm(undefined);
     $('.FilmDetails').toggleClass("toggled");
   }
 
@@ -92,21 +93,21 @@ const FilmsList = () => {
       <select name="years" onChange={selectDate} value={selectedDate}>
         <option value="">Year</option>
         {releaseDates.map((date) => (
-          <option value={date}>{date}</option>
+          <option key={date} value={date}>{date}</option>
         ))}
       </select>
 
       <select name="directors" onChange={selectDirector} value={selectedDirector}>
         <option value="">Director</option>
         {directors.map((director) => (
-          <option value={director}>{director}</option>
+          <option key={director} value={director}>{director}</option>
           ))}
       </select>
 
       { <FilmDetails data={selectedFilm} onClose={() => closeDetails()} /> }
       <div className="Films">
         {searchResults.map((film) => (
-            <Film data={film} onClick={() => displayDetails(film)}  />
+            <Film key={film.id} data={film} onClick={() => displayDetails(film)}  />
         ))}
         {searchResults.length === 0 && (
           <p>No films found</p>)
